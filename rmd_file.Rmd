@@ -1,0 +1,240 @@
+---
+title: "R_final_project"
+output: html_document
+---
+
+
+``` {r}
+
+# import necessary libraries
+library(rJava)
+library(RJDBC)
+library(dplyr)
+library(magrittr)
+library(ggplot2)
+library(shiny)
+library(data.table)
+library(leaflet)
+library(leaflet.extras)
+library(shinythemes)
+
+# loading data into R
+NYC_raw_data <- read.csv(file="NYPD_Motor_Vehicle_Collisions_Crashes.csv",
+         header=TRUE, sep=",")
+
+# checking type and dimensions
+str(NYC_raw_data)
+
+# checking data headers
+head(NYC_raw_data)
+
+# checking NAs
+colSums(is.na(NYC_raw_data))
+
+# generating row IDs
+NYC_raw_data$ID <- seq.int(nrow(NYC_raw_data))
+
+# remove blanks and nulls from column BOROUGH
+NYC_raw_data <- NYC_raw_data[!(is.na(NYC_raw_data$BOROUGH) | NYC_raw_data$BOROUGH=="" | NYC_raw_data$BOROUGH==" "), ]
+
+# checking type and dimensions after modification
+str(NYC_raw_data)
+
+# creating column called "contributing factor" - contributing factor vehicle 1
+NYC_raw_data$Contributing_factor <- NYC_raw_data$CONTRIBUTING.FACTOR.VEHICLE.1
+
+# convert date column to date 
+NYC_raw_data$DATE_Modified <- as.Date(NYC_raw_data$DATE, format="%m/%d/%Y")
+
+#extract year from modified date column
+NYC_raw_data$YEAR <- as.numeric(format(NYC_raw_data$DATE_Modified,'%Y'))
+
+
+# filtering data for Brooklyn borough
+brooklyn <- NYC_raw_data %>%
+  filter(BOROUGH == "BROOKLYN")
+
+# filter data where longitude are not NA
+heatmap <- subset(brooklyn, is.na(LONGITUDE) == FALSE )
+# Specify a map with center at the center of all the coordinates
+meanLongitude <- mean(heatmap$LONGITUDE)
+meanLatitude <- mean(heatmap$LATITUDE)
+
+# coerce YEAR column to factor class
+heatmap$YEAR <- as.factor(heatmap$YEAR)
+
+#create a column to denote magnitude of persons killed in accidents
+heatmap$mag <- heatmap$NUMBER.OF.PERSONS.KILLED
+
+# filter out data where number of persons killed is NA
+heatmap <- subset(heatmap, is.na(NUMBER.OF.PERSONS.KILLED) == FALSE)
+
+#filter out data where persons were not killed
+heatmap <- subset(heatmap, NUMBER.OF.PERSONS.KILLED > 0)
+
+#create a dataframe to feed in the map 
+data <-heatmap
+
+# checking brooklyn data
+head(brooklyn)
+
+# absolute count of accidents by borough - highlighting brooklyn
+NYC_raw_data %>% 
+  mutate(highlight_flag = ifelse(BOROUGH == "BROOKLYN", T, F)) %>% 
+  ggplot(aes(x = BOROUGH)) +
+  geom_bar(stat = "count", aes(fill = highlight_flag)) + scale_fill_manual(values=c("blue","red")) +
+  scale_y_discrete("Accidents")
+
+# accidents trend of boroughs by year
+scalefun <- function(x)(x/1000)
+ggplot(NYC_raw_data,aes(x = YEAR, color = BOROUGH)) +  geom_line(size=1,stat = 'count') + 
+  scale_y_continuous("Accidents (in thousands)",labels = scalefun) + theme_classic()
+
+
+
+# unique boroughs
+unique_borough <- as.factor(unique(NYC_raw_data$BOROUGH))
+YEAR <- unique(heatmap$YEAR)
+# rename metric columns in the brooklyn dataset
+setnames(brooklyn, old = c('NUMBER.OF.PERSONS.INJURED','NUMBER.OF.PERSONS.KILLED','NUMBER.OF.PEDESTRIANS.INJURED',
+                           'NUMBER.OF.PEDESTRIANS.KILLED','NUMBER.OF.CYCLIST.INJURED','NUMBER.OF.CYCLIST.KILLED',
+                           'NUMBER.OF.MOTORIST.INJURED','NUMBER.OF.MOTORIST.KILLED'), new = c('Persons_Injured','Persons_Killed',
+                                                                                              'Pedestrians_Injured','Pedestrians_Killed','Cyclists_Injured','Cyclists_Killed',
+                                                                                              'Motorists_Injured','Motorists_Killed'))
+metrics <- data.frame(c('Persons_Injured','Persons_Killed',
+                        'Pedestrians_Injured','Pedestrians_Killed','Cyclists_Injured','Cyclists_Killed',
+                        'Motorists_Injured','Motorists_Killed'))
+# create ui for shiny app
+ui <- fluidPage(
+  
+  mainPanel( 
+    # create a mainpanel that creates the space
+    # create tab panel to store the tabs using different tabpanels
+    tabsetPanel(
+      type = "tabs", 
+      tabPanel("Accident trend of Boroughs", checkboxGroupInput(inputId = "unique_borough", label = "Click and choose a borough: ", choices = unique_borough, selected = "BROOKLYN"),
+               plotOutput("graph1", height = 700, width = 1300)),
+      
+      tabPanel("Total Accidents", plotOutput("graph2", height = 700, width = 1300)),
+      
+      tabPanel("NYC Heatmap", leafletOutput(outputId = "mymap", height = 900, width = 1800),
+               absolutePanel(bottom = 20, right = 20, draggable = TRUE, checkboxInput("markers", "Year", FALSE),
+                             checkboxInput("heat", "Heatmap", FALSE))),
+      
+      tabPanel("Contributing Factors", plotOutput("graph3", height = 700, width = 1300), selectInput(inputId = "dropdown_metric", label = "Choose a metric to view: ",
+                                                                                                     choices = metrics, selected = "Motorists_Injured", multiple=FALSE)),
+      tabPanel("Injury stats", plotOutput("graph4", height = 700, width = 1300))
+      
+    )))
+
+# create a server function for the shiny app
+server <- function(input, output, session) {
+  
+  
+  
+  #define the color pallate for the map, denotes magnitude of people killed
+  pal <- colorNumeric(
+    palette = c('black', 'grey', 'blue', 'green','red'),
+    
+    domain = data$mag)
+  
+  #define the color for differnt years
+  pal2 <- colorFactor(
+    palette = c('blue', 'yellow', 'gold', 'orange', 'dark orange', 'orange red', 'red', 'dark red'),
+    domain = heatmap$YEAR
+  )
+  
+  # use renderplot to generate the graphs
+  output$graph1 <- renderPlot({
+    
+    # accident trend of boroughs by year
+    scalefun <- function(x)(x/1000)
+    ggplot(NYC_raw_data[(NYC_raw_data$BOROUGH==c(input$unique_borough)), ],aes(x = YEAR, color = BOROUGH)) +  
+      geom_line(size=1,stat = 'count') + 
+      scale_y_continuous("Accidents (in thousands)",labels = scalefun) + theme_classic() +
+      ggtitle("Accident trend over years")
+  })
+  
+  output$graph2 <- renderPlot({
+    
+    # absolute count of accidents by borough - highlighting brooklyn
+    isolate(NYC_raw_data %>%
+              mutate(highlight_flag = ifelse(BOROUGH == "BROOKLYN", T, F)) %>%
+              ggplot(aes(x = BOROUGH)) +
+              geom_bar(stat = "count", aes(fill = highlight_flag)) + scale_fill_manual(values=c("blue","red")) +
+              scale_y_discrete("Accidents")) + ggtitle("Number of accidents") + theme(legend.title = element_blank())
+  })
+  
+  output$graph3 <- renderPlot({
+    
+    # COntributing factors for chosen metric from dropdown menu
+    temp <- setNames(aggregate(x=brooklyn %>% select_(input$dropdown_metric), 
+                               by=list(brooklyn$Contributing_factor),FUN=sum),c("Contributing_Factor","Metric_Count"))
+    temp <- filter(temp,Contributing_Factor!='Unspecified',Metric_Count>0,
+                   Contributing_Factor!='1',Contributing_Factor!='80',Contributing_Factor!='')
+    ggplot() + geom_col(data=temp,aes(x=reorder(Contributing_Factor,Metric_Count),y=Metric_Count), 
+                        fill="dark blue",color="light blue") + coord_flip() + 
+      scale_x_discrete("Contributing Factor") +
+      ggtitle("Count by contributing factor - Brooklyn") + theme_classic()
+  })
+  
+  output$graph4 <- renderPlot({
+    
+    # injury stats for different victim category
+    brooklyn_injuries <- melt(data=brooklyn,id.vars=c("COLLISION_ID","YEAR"),
+                              measure.vars=c("Persons_Injured","Pedestrians_Injured","Cyclists_Injured","Motorists_Injured"))
+    
+    brooklyn_injuries <- setNames(aggregate(brooklyn_injuries$value,by=c(list(brooklyn_injuries$variable),
+                                                                         list(brooklyn_injuries$YEAR)),FUN=sum), c("Metric","Year","Count"))
+    
+    ggplot(brooklyn_injuries,aes(x=Year,y=Count,fill=Metric)) + geom_bar(position="stack",stat="identity") +
+      scale_y_continuous("Count (in thousands)",labels = scalefun) + theme_dark() +
+      ggtitle("Brooklyn: Injuries by year")
+  })
+  
+  
+  
+  #create the map
+  output$mymap <- renderLeaflet({
+    leaflet(heatmap) %>% 
+      
+      setView(lng = meanLongitude, lat = meanLatitude, zoom = 11)  %>% #setting the view over ~ center of Brooklyn
+      addTiles() %>% 
+      addCircles(data = heatmap, lat = ~ LATITUDE, lng = ~ LONGITUDE, weight = 1, radius = ~sqrt(mag)*30, popup = ~as.character(mag), label = ~as.character(paste0("#People Killed: ", sep = " ", mag)), color = ~pal(mag), fillOpacity = 0.8)
+  })
+  
+  #observe function to make the checkboxes dynamic. 
+  observe({
+    proxy <- leafletProxy("mymap", data = data)
+    proxy %>% clearMarkers()
+    if (input$markers) {
+      proxy %>% addCircleMarkers(stroke = FALSE, color = ~pal2(YEAR), fillOpacity = 0.2,      label = ~as.character(paste0("# Persons killed: ", sep = " ", mag))) %>%
+        addLegend("bottomright", pal = pal2, values = data$YEAR, 
+                  title = "Mag",
+                  opacity = 1)}
+    else {
+      proxy %>% clearMarkers() %>% clearControls()
+    }
+  })
+  
+  observe({
+    proxy <- leafletProxy("mymap", data = data)
+    proxy %>% clearMarkers()
+    if (input$heat) {
+      proxy %>%  addHeatmap(lng=~LONGITUDE, lat=~LATITUDE, intensity = ~mag, blur =  10, max = 0.05, radius = 15) 
+    }
+    else{
+      proxy %>% clearHeatmap()
+    }
+    
+    
+  })
+  
+}
+# execute the shiny app
+shinyApp(ui, server)
+
+
+
+
+```
