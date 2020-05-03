@@ -102,13 +102,13 @@ each review that the program reads.
 ![time](https://github.com/akshay-madar/airbnb-nyc-urban-tourism-challenge/blob/master/time_complexity.PNG)
 
 ## 3. Results:
-*Travellers’ preferences:*
-  - Most travellers book Airbnb for short stays.
-  - Travellers prefer moderately priced Airbnbs
-*Listings:*
-  - Expensive properties go unbooked in NYC
-  - Airbnbs in Manhattan area are priced higher than Airbnbs in other parts of NYC
-  - Neighbourhood in Manhattan is particularly strong, as compared to other boroughs, in
+  - *Travellers’ preferences:*
+    - Most travellers book Airbnb for short stays.
+    - Travellers prefer moderately priced Airbnbs
+  - *Listings:*
+    - Expensive properties go unbooked in NYC
+    - Airbnbs in Manhattan area are priced higher than Airbnbs in other parts of NYC
+    - Neighbourhood in Manhattan is particularly strong, as compared to other boroughs, in
 determining the price. This perceived premium with respect to location, results in higher
 prices and low bookings.
 
