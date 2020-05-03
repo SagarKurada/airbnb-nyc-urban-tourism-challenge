@@ -146,4 +146,6 @@ additional factors that influence travellers when deciding about accommodations.
   - [2] Sea The City. (2019, December 31). NYC Tourism Facts & Statistics. Retrieved from https://www.seathecity.com/nyc-tourism-facts-statistics/
 
 ## Instructions:
-Please run the jupyter notebook ["code.ipynb"]https://github.com/akshay-madar/airbnb-nyc-urban-tourism-challenge/blob/master/code.ipynb()
+Please run the jupyter notebook ["code.ipynb"](https://github.com/akshay-madar/airbnb-nyc-urban-tourism-challenge/blob/master/code.ipynb)
+
+[![code]](https://github.com/akshay-madar/airbnb-nyc-urban-tourism-challenge/blob/master/code.ipynb "Run the following code file")
