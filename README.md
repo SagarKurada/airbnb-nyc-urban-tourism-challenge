@@ -11,16 +11,16 @@ In a world that is becoming increasingly global, traveling has become an integra
 ## Project Flow:
   1. [Objective](#1-objective)
   2. [Computational Steps](#2-computational-steps)
-    * [Decision Tree](#decision-tree)
-    * [Clustering](#clustering)
-    * [Dynamic Programming](#dynamic-programming)
-      - Optimal Solution
-      - Greedy Algorithm
-      - Random Selection
-    - Linear Regression
-    - Time Complexity and Comparison
-  3. Results
-  4.  Conclusions/Recommendations
+    - [Decision Tree](#decision-tree)
+    - [Clustering](#clustering)
+    - [Dynamic Programming](#dynamic-programming)
+      - [Optimal Solution](#optimal-solution)
+      - [Greedy Algorithm](#greedy-algorithm)
+      - [Random Selection](#random-selection)
+    - [Linear Regression](#linear-regression)
+    - [Time Complexity and Comparison](#time-complexity-and-comparison)
+  3. [Results](#3-results)
+  4. [Conclusion/Recommendations](#4-conclusionrecommendations)
 
 ## 1. Objective:
 The objective of the project is to design a framework that allows for **computing optimal AirBnB listing(s) based on user inputs such as their budget and number of days of stay, and aligning those with the listing availability and pricing.**
