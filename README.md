@@ -10,10 +10,10 @@ In a world that is becoming increasingly global, traveling has become an integra
 
 ## Project Flow:
   1. [Objective](#1-objective)
-  2. [Computational Steps] (#2-computational-steps)
-    - [Decision Tree](#decision-tree)
-    - [Clustering](#clustering)
-    - Dynamic Programming
+  2. [Computational Steps](#2-computational-steps)
+    * [Decision Tree](#decision-tree)
+    * [Clustering](#clustering)
+    * [Dynamic Programming](#dynamic-programming)
       - Optimal Solution
       - Greedy Algorithm
       - Random Selection
