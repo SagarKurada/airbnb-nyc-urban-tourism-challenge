@@ -79,7 +79,8 @@ the Greedy Algorithm was used. This result gave the AirBnB that had the best val
 respect to the parameters considered.
 ### Random Selection: 
 An option for travelers to randomly select Airbnbs based on their
-availability and budget was also given. This was done using a loop, which selected Airbnbs
+availability and budget was also given. This was done using a loop, which selected Airbnbs randomly using np.random.choice based on their availability (higher the availability, the
+higher the chance of it being selected). The loop continued until the budget was exhausted.
 
 ![random](https://github.com/akshay-madar/airbnb-nyc-urban-tourism-challenge/blob/master/random_selection.PNG)
 
@@ -125,3 +126,7 @@ the listings to understand best and worst listings.
 transport like subway, and proximity from the airport are prime concerns for any traveller.
   - An analysis of included benefits, like kitchen, free city tours, etc could help in identifying
 additional factors that influence travellers when deciding about accommodations.
+
+### Citations:
+[1] Airbnb Statistics: User & Market Growth Data. (2019, November). Retrieved from https://ipropertymanagement.com/airbnb-statistics/
+[2] Sea The City. (2019, December 31). NYC Tourism Facts & Statistics. Retrieved from https://www.seathecity.com/nyc-tourism-facts-statistics/
