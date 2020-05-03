@@ -4,6 +4,8 @@
 ## Motivation:
 In a world that is becoming increasingly global, traveling has become an integral part of everyone’s lives. There is a plethora of locations from mountains to islands, from quaint towns to bustling cities made easily accessible by commute and accommodation options. While the internet has allowed for thousands of gigabytes of information sharing regarding stays, discounts, picturesque spots that are social-media worthy, it has also made it that much harder for the users to narrow down their search for the ideal travel accommodation.
 
+![nyc](https://media.giphy.com/media/PusBKwc3wHzWw/giphy.gif)
+
 ## 1. Objective:
 The objective of the project is to design a framework that allows for **computing optimal AirBnB listing(s) based on user inputs such as their budget and number of days of stay, and aligning those with the listing availability and pricing.**
 
@@ -74,9 +76,7 @@ respect to the parameters considered.
 An option for travelers to randomly select Airbnbs based on their
 availability and budget was also given. This was done using a loop, which selected Airbnbs
 
-`
 ![random](https://github.com/akshay-madar/airbnb-nyc-urban-tourism-challenge/blob/master/random_selection.PNG)
-`
 
 ## Linear Regression:
 In order to identify the parameters responsible for increase in the price of the
