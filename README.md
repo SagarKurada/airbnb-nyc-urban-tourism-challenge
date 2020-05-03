@@ -14,7 +14,7 @@ The objective of the project is to design a framework that allows for **computin
 ### But why Airbnb?
 AirBnB, with about 150 million users worldwide [1], is tremendously popular now, primarily because of its affordability and open platform. New York is one of the most visited cities in the world - it attracted 13.1 international tourists in 2017, [2] which is why the included computational methods are focused on data generated from AirBnBs in New York City.
 
-[![Welcome to the Airbnb Youtube Channel](https://img.youtube.com/vi/-XSAqfK_UwY.jpg)](https://www.youtube.com/watch?v=-XSAqfK_UwY)
+[![Welcome to the Airbnb Youtube Channel](https://github.com/akshay-madar/airbnb-nyc-urban-tourism-challenge/blob/master/airbnb.PNG)](https://www.youtube.com/watch?v=-XSAqfK_UwY)
 
 
 ## 2. Computational Steps:
