@@ -6,6 +6,10 @@ In a world that is becoming increasingly global, traveling has become an integra
 
 ![nyc](https://media.giphy.com/media/PusBKwc3wHzWw/giphy.gif)
 
+<p align="center">
+  <img width="460" height="300" src=https://media.giphy.com/media/PusBKwc3wHzWw/giphy.gif">
+</p>
+
 ## 1. Objective:
 The objective of the project is to design a framework that allows for **computing optimal AirBnB listing(s) based on user inputs such as their budget and number of days of stay, and aligning those with the listing availability and pricing.**
 
