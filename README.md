@@ -4,13 +4,13 @@
 ## Motivation:
 In a world that is becoming increasingly global, traveling has become an integral part of everyone’s lives. There is a plethora of locations from mountains to islands, from quaint towns to bustling cities made easily accessible by commute and accommodation options. While the internet has allowed for thousands of gigabytes of information sharing regarding stays, discounts, picturesque spots that are social-media worthy, it has also made it that much harder for the users to narrow down their search for the ideal travel accommodation.
 
-## Objective:
+## 1. Objective:
 The objective of the project is to design a framework that allows for **computing optimal AirBnB listing(s) based on user inputs such as their budget and number of days of stay, and aligning those with the listing availability and pricing.**
 
-## But why Airbnb?
+### But why Airbnb?
 AirBnB, with about 150 million users worldwide [1], is tremendously popular now, primarily because of its affordability and open platform. New York is one of the most visited cities in the world - it attracted 13.1 international tourists in 2017, [2] which is why the included computational methods are focused on data generated from AirBnBs in New York City.
 
-## Computational Steps:
+## 2. Computational Steps:
   - **Data:** The dataset ‘New York City Airbnb Open Data’ was taken from www.kaggle.com. There were 48895 observations.
   - **Data Cleaning:** The data was reasonably clean with ~49k rows. There were blank ~12k rows in columns Last_review and reveiwes_per_month. These rows were deleted. Host_ID and Host_Name were irrelevant to our analysis, hence they were dropped. In addition, the data did not have the text reviews of the customer. Due to the same, we have scrapped the file from internet containing the reviews for New York
   - **Data Scraping of Reviews:** The data was scraped from Airbnb’s website. The data was posted on the website as an attachment. Urllib package was used to download the data. WordCloud is created using the data, this would help Airbnb owners to identify the success parameters and keywords responsible for the success of their property.
@@ -58,8 +58,65 @@ in the list.
   - **Min_price** = price * minimum_nights
   - **Value** = availability / min_price
 
-  ### Optimal Solution: 
-  Optimal Solution using Dynamic Programming was used to select
+### Optimal Solution: 
+Optimal Solution using Dynamic Programming was used to select
 airbnbs to maximize Value with budget as the constraint. However, this method had a high
 run-time when the number of listings exceed 10,000. The relationship with time taken and
 row size was linear. This challenge was mitigated using Sorting and the Greedy algorithm.
+
+![optimal](https://github.com/akshay-madar/airbnb-nyc-urban-tourism-challenge/blob/master/optimal_solution.PNG)
+
+### Greedy Algorithm:
+The object was then sorted based on Value in a list using np.sort and
+the Greedy Algorithm was used. This result gave the AirBnB that had the best value with
+respect to the parameters considered.
+### Random Selection: 
+An option for travelers to randomly select Airbnbs based on their
+availability and budget was also given. This was done using a loop, which selected Airbnbs
+
+`
+![random](https://github.com/akshay-madar/airbnb-nyc-urban-tourism-challenge/blob/master/random_selection.PNG)
+`
+
+## Linear Regression:
+In order to identify the parameters responsible for increase in the price of the
+Airbnb, regression was run. The output of the equation would help the owner identify the best
+parameter suitable for their property. The output can also be used by owner to benchmark their
+prices based on the service and quality of the property.
+randomly using np.random.choice based on their availability (higher the availability, the
+higher the chance of it being selected). The loop continued until the budget was exhausted.
+
+![regression](https://github.com/akshay-madar/airbnb-nyc-urban-tourism-challenge/blob/master/linear_regression.PNG)
+
+## Time complexity and comparison:
+Below is the chart representing the time taken for different components of the project to run. Generating
+the world cloud chart was the slowest part of the project since it uses google translation from internet for
+each review that the program reads.
+
+![time](https://github.com/akshay-madar/airbnb-nyc-urban-tourism-challenge/blob/master/time_complexity.PNG)
+
+## 3. Results:
+*Travellers’ preferences:*
+  - Most travellers book Airbnb for short stays.
+  - Travellers prefer moderately priced Airbnbs
+*Listings:*
+  - Expensive properties go unbooked in NYC
+  - Airbnbs in Manhattan area are priced higher than Airbnbs in other parts of NYC
+  - Neighbourhood in Manhattan is particularly strong, as compared to other boroughs, in
+determining the price. This perceived premium with respect to location, results in higher
+prices and low bookings.
+
+## 4. Conclusion/Recommendations:
+  - Although most of the AirBnbs are unbooked in NYC, long stay listings are particularly not
+popular among travellers. Having shorter minimum stay period could lead to an increase in the
+number of bookings that such properties accumulate over the year.
+  - Expensive listings are not preferred by travellers, particularly when New York in general is an
+expensive city to live in. Airbnb could look at cheaper staggered pricing during certain times of
+the year, to increase adoption rates among budget travellers.
+  - For further analysis, a sentimental analysis can be done to understand the features that are most
+important to the travellers. Also, travellers’ ratings and reviews can be used to refine segments of
+the listings to understand best and worst listings.
+  - We could look at commute options around the listed properties. Availability of cheap public
+transport like subway, and proximity from the airport are prime concerns for any traveller.
+  - An analysis of included benefits, like kitchen, free city tours, etc could help in identifying
+additional factors that influence travellers when deciding about accommodations.
