@@ -7,7 +7,7 @@ In a world that is becoming increasingly global, traveling has become an integra
 ![nyc](https://media.giphy.com/media/PusBKwc3wHzWw/giphy.gif)
 
 <p align="center">
-  <img width="460" height="300" src=https://media.giphy.com/media/PusBKwc3wHzWw/giphy.gif">
+  <img width="460" height="300" src="https://media.giphy.com/media/PusBKwc3wHzWw/giphy.gif">
 </p>
 
 ## 1. Objective:
