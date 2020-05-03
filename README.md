@@ -37,3 +37,29 @@ requirement of minimum number of days. There were not many guests at these prope
   - **Moderately Priced Short Stay:** With 11970, these were moderately priced, and did not
 require long durations of minimum stay. Based on number of reviews, there were not many
 guests at these properties
+  - **Moderately Priced Popular Properties:** This gave 262 listings. They were moderately priced
+and had low availability across the year
+  - **Expensive and Unpopular Properties:** With 6886 listings, these were highly priced and not
+rented out enough. Their availability was high.
+
+![elbow](https://github.com/akshay-madar/airbnb-nyc-urban-tourism-challenge/blob/master/elbow_plot.PNG)
+
+## Dynamic Programming:
+*Business Problem*- A travel blogger wants to stay at multiple Airbnbs during the course of his/her
+vacation until his/her budget is exhausted. The travel blogger has a budget constraint. The objective is
+to provide the best possible AirBNBs based on Availability and Price.
+To tackle the business problem and provide recommendations to the travel logger, 3
+different approaches are used.
+
+*Input data* - Object of each row in the dataframe was created with ID, min_price and value and put
+in the list.
+
+  - **Availability** = availability_365 / 365
+  - **Min_price** = price * minimum_nights
+  - **Value** = availability / min_price
+
+  ### Optimal Solution: 
+  Optimal Solution using Dynamic Programming was used to select
+airbnbs to maximize Value with budget as the constraint. However, this method had a high
+run-time when the number of listings exceed 10,000. The relationship with time taken and
+row size was linear. This challenge was mitigated using Sorting and the Greedy algorithm.
