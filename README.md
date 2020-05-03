@@ -4,10 +4,8 @@
 ## Motivation:
 In a world that is becoming increasingly global, traveling has become an integral part of everyone’s lives. There is a plethora of locations from mountains to islands, from quaint towns to bustling cities made easily accessible by commute and accommodation options. While the internet has allowed for thousands of gigabytes of information sharing regarding stays, discounts, picturesque spots that are social-media worthy, it has also made it that much harder for the users to narrow down their search for the ideal travel accommodation.
 
-![nyc](https://media.giphy.com/media/PusBKwc3wHzWw/giphy.gif)
-
 <p align="center">
-  <img width="460" height="300" src="https://media.giphy.com/media/PusBKwc3wHzWw/giphy.gif">
+  <img width="560" height="400" src="https://media.giphy.com/media/PusBKwc3wHzWw/giphy.gif">
 </p>
 
 ## 1. Objective:
@@ -15,6 +13,9 @@ The objective of the project is to design a framework that allows for **computin
 
 ### But why Airbnb?
 AirBnB, with about 150 million users worldwide [1], is tremendously popular now, primarily because of its affordability and open platform. New York is one of the most visited cities in the world - it attracted 13.1 international tourists in 2017, [2] which is why the included computational methods are focused on data generated from AirBnBs in New York City.
+
+[![Welcome to the Airbnb Youtube Channel](https://img.youtube.com/vi/-XSAqfK_UwY.jpg)](https://www.youtube.com/watch?v=-XSAqfK_UwY)
+
 
 ## 2. Computational Steps:
   - **Data:** The dataset ‘New York City Airbnb Open Data’ was taken from www.kaggle.com. There were 48895 observations.
