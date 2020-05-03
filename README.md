@@ -128,5 +128,5 @@ transport like subway, and proximity from the airport are prime concerns for any
 additional factors that influence travellers when deciding about accommodations.
 
 ### Citations:
-[1] Airbnb Statistics: User & Market Growth Data. (2019, November). Retrieved from https://ipropertymanagement.com/airbnb-statistics/
-[2] Sea The City. (2019, December 31). NYC Tourism Facts & Statistics. Retrieved from https://www.seathecity.com/nyc-tourism-facts-statistics/
+  - [1] Airbnb Statistics: User & Market Growth Data. (2019, November). Retrieved from https://ipropertymanagement.com/airbnb-statistics/
+  - [2] Sea The City. (2019, December 31). NYC Tourism Facts & Statistics. Retrieved from https://www.seathecity.com/nyc-tourism-facts-statistics/
