@@ -44,7 +44,7 @@ Clicking on markers to display the listing ID was attempted using folium. While 
 ## Decision Tree:
 To understand the impact of features of Airbnb listings on its price, Decision tree is used. It is used because:
 * Trees have high degree of interpretability, and are easy to explain to airbnb owners and travallers
-* They can handle qualitative predictors, without the need of dummy variables
+* They can handle qualitative predictors, without the need of dummy variables. However, sklearn DTs cannot handle categorical variables.
 * They do not involve eucledian distances. So feature scaling is not required for splits.
 * NOTE: DTs have low predictive power, and high variance. Hence, other ML approaches or methods like bagging, boosting, RF could be used.
 
