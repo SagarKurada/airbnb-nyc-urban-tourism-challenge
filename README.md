@@ -42,7 +42,13 @@ AirBnB, with about 150 million users worldwide [1], is tremendously popular now,
 Clicking on markers to display the listing ID was attempted using folium. While it worked for small samples of the dataset, it took about 30 seconds to execute for the entire dataset. It was found that it fails at 3000 markers.
 
 ## Decision Tree:
-To understand the impact of features of Airbnb listings on its price, Decision tree is used. Following are the top features that impact the price of Airbnb:
+To understand the impact of features of Airbnb listings on its price, Decision tree is used. It is used because:
+* Trees have high degree of interpretability, and are easy to explain to airbnb owners and travallers
+* They can handle qualitative predictors, without the need of dummy variables
+* They do not involve eucledian distances. So feature scaling is not required for splits.
+* NOTE: DTs have low predictive power, and high variance. Hence, other ML approaches or methods like bagging, boosting, RF could be used.
+
+Following are the top features that impact the price of Airbnb:
   - **Room type:** An apartment or entire house will lead to higher price for obvious reason that it can accommodate a higher number of people than a private room
   - **Availability_365:** The number of days that a listing is available in a year plays another important factor in determining the price of a listing. We observe that the listings with high availability in a year lead to lower price.
   - **Calulated_host_listing_cost:** Unsurprisingly, amount of listing per host leads to higher price in listings in Airbnb
