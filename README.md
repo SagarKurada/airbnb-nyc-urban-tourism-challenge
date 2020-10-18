@@ -87,7 +87,7 @@ in the list.
 
 ### Optimal Solution: 
 Optimal Solution using Dynamic Programming was used to select
-airbnbs to maximize Value with budget as the constraint. However, this method had a high
+airbnbs to maximize value with budget as the constraint. However, this method had a high
 run-time when the number of listings exceed 10,000. The relationship with time taken and
 row size was linear. This challenge was mitigated using Sorting and the Greedy algorithm.
 
